@@ -1,0 +1,253 @@
+ <!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>Дневник - Софтуерно инженерство</title>
+ 
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6f9;
+}
+ 
+
+header{
+  background:#1e88e5;
+  color:white;
+  padding:15px 30px;
+  font-size:20px;
+}
+ 
+
+.top-menu{
+  background:white;
+  padding:15px;
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 5px #ccc;
+}
+.menu-btn{
+  border:1px solid #ccc;
+  padding:10px 18px;
+  border-radius:6px;
+  background:#f7f7f7;
+  cursor:pointer;
+}
+.menu-btn.active{
+  background:#1e88e5;
+  color:white;
+  border:none;
+}
+ 
+
+.container{padding:20px;}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+}
+th,td{
+  border:1px solid #ddd;
+  padding:8px;
+  text-align:center;
+}
+th{
+  background:#607d8b;
+  color:white;
+}
+tr:nth-child(even){background:#f9f9f9;}
+ 
+
+.plus-btn{
+  background:#00c853;
+  color:white;
+  border:none;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer;
+}
+ 
+
+.modal{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+}
+.modal-content{
+  background:white;
+  padding:25px;
+  border-radius:8px;
+  width:350px;
+  text-align:center;
+}
+ 
+.grade-btn{
+  border:1px solid #ccc;
+  padding:8px 12px;
+  margin:5px;
+  cursor:pointer;
+  border-radius:5px;
+}
+.grade-btn.selected{
+  background:#1e88e5;
+  color:white;
+  border:none;
+}
+ 
+select,input{
+  width:90%;
+  padding:8px;
+  margin-top:10px;
+}
+ 
+.modal-content button{
+  margin-top:15px;
+  padding:8px 15px;
+  border:none;
+  background:#1e88e5;
+  color:white;
+  cursor:pointer;
+}
+</style>
+</head>
+ 
+<body>
+ 
+<header>Дневник 12А – Софтуерно инженерство</header>
+ 
+
+<div class="top-menu">
+  <div class="menu-btn active">Оценки</div>
+  <div class="menu-btn">Отсъствия</div>
+  <div class="menu-btn">Закъснения</div>
+  <div class="menu-btn">Забележки / Похвали</div>
+</div>
+ 
+
+<div class="container">
+<table>
+<tr>
+  <th>№</th>
+  <th>Име, Презиме, Фамилия</th>
+  <th>Оценки I срок</th>
+  <th>Срочна I</th>
+  <th>Оценки II срок</th>
+  <th>Срочна II</th>
+  <th>Годишна</th>
+  <th></th>
+</tr>
+ 
+<script>
+let students = [
+ "Иван Атанасов Петров","Мария Петрова Георгиева","Николай Андреев Димитров",
+ "Елена Димитрова Иванова","Георги Василев Колев","Анна Иванова Стоянова",
+ "Петър Иванов Илиев","Десислава Йорданова Николова","Христо Запрянов Георгиев",
+ "Виктория Асенова Димитрова","Александър Василев Петров","Мартин Иванов Петров",
+ "София Пенчева Георгиева","Виктория Иванова Стоянова","Габриела Иванова Стоянова"
+];
+ 
+students.forEach((name,i)=>{
+ document.write(`
+ <tr>
+   <td>${i+1}</td>
+   <td>${name}</td>
+   <td>-</td>
+   <td>-</td>
+   <td>-</td>
+   <td>-</td>
+   <td>-</td>
+   <td><button class="plus-btn" onclick="openModal('${name}')">+</button></td>
+ </tr>
+ `);
+});
+</script>
+ 
+</table>
+</div>
+ 
+
+<div class="modal" id="gradeModal">
+  <div class="modal-content">
+    <h3>Добавяне на оценка</h3>
+    <p id="studentName"></p>
+ 
+    <div>
+      <p>Избери оценка:</p>
+      <span class="grade-btn" onclick="selectGrade(2)">2</span>
+      <span class="grade-btn" onclick="selectGrade(3)">3</span>
+      <span class="grade-btn" onclick="selectGrade(4)">4</span>
+      <span class="grade-btn" onclick="selectGrade(5)">5</span>
+      <span class="grade-btn" onclick="selectGrade(6)">6</span>
+    </div>
+ 
+    
+    <select id="reason">
+     <option>Класна работа</option>
+     <option>Контролна работа</option>
+     <option>Тест</option>
+     <option>Проект</option>
+     <option>Домашна работа</option>
+     <option>Индивидуално изпитване</option>
+     <option>Практическо изпитване</option>
+    </select>
+
+    <select id="term">
+      <option>I срок</option>
+      <option>Срочна I</option>
+      <option>II срок</option>
+      <option>Срочна II</option>
+      <option>Годишна</option>
+    </select>
+ 
+    <button onclick="saveGrade()">Запази</button>
+    <button onclick="closeModal()">Затвори</button>
+  </div>
+</div>
+ 
+<script>
+let selectedStudent = "";
+let selectedGrade = "";
+ 
+function openModal(name){
+  selectedStudent = name;
+  document.getElementById("studentName").innerText = name;
+  document.getElementById("gradeModal").style.display="flex";
+}
+ 
+function closeModal(){
+  document.getElementById("gradeModal").style.display="none";
+  clearSelection();
+}
+ 
+function selectGrade(g){
+  selectedGrade = g;
+  document.querySelectorAll(".grade-btn").forEach(b=>b.classList.remove("selected"));
+  event.target.classList.add("selected");
+}
+ 
+function clearSelection(){
+  selectedGrade="";
+  document.getElementById("reason").value="";
+  document.querySelectorAll(".grade-btn").forEach(b=>b.classList.remove("selected"));
+}
+ 
+function saveGrade(){
+  if(selectedGrade==""){
+    alert("Избери оценка!");
+    return;
+  }
+  alert("Записана оценка "+selectedGrade+" за "+selectedStudent);
+  closeModal();
+}
+</script>
+ 
+</body>
+</html>
