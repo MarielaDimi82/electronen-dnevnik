@@ -1,0 +1,173 @@
+  <!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>Дневник - Софтуерно инженерство</title>
+ 
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6f9;
+}
+ 
+
+header{
+  background:#1e88e5;
+  color:white;
+  padding:15px 30px;
+  font-size:20px;
+}
+ 
+
+.sidebar{
+  position:fixed;
+  left:0; top:50px;
+  width:200px;
+  height:100%;
+  background:#5f5f5f;
+  padding-top:20px;
+}
+.sidebar a{
+  display:block;
+  color:white;
+  padding:12px;
+  text-decoration:none;
+  border-left:4px solid transparent;
+}
+.sidebar a:hover{background:#1e88e5;border-left-color:#ffeb3b;}
+
+
+.container{
+  width:100%;
+  padding:0;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+th,td{
+  padding:14px 12px;
+  text-align:center;
+  font-size:16px;
+  border:none;
+}
+th{
+  background:#1e88e5;
+  color:white;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+td{
+  color:#333;
+}
+tr:nth-child(even){background:#f8f9fa;}
+tr:hover{background:#e3f2fd;}
+ 
+
+
+ .performance-section{
+  
+  background:transparent;
+  padding:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.performance-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.content{
+  margin-left:210px;
+  padding:20px;
+}
+
+select,input{
+  width:90%;
+  padding:8px;
+  margin-top:10px;
+}
+ 
+</style>
+</head>
+ 
+<body>
+ 
+<header> Иван Атанасов Петров</header>
+ 
+
+<div class="sidebar">
+  <a href="Student.html">Табло</a>
+  <a href="student-grades.html">Оценки</a>
+  <a href="student-absense.html">Отсъствия</a>
+  <a href="student-zabelejki-pohvali.html">Забележки / Похвали</a>
+</div>
+ 
+<div class="content">
+
+<div class="performance-section">
+    <div class="performance-row">
+
+<div class="container">
+<table>
+<tr>
+  <th>Предмет</th>
+  <th>По уважителни причини</th>
+  <th>Без уважителни причини</th>
+  <th>Общо</th>
+  
+</tr>
+ 
+<script>
+let subjects = [
+    "Математика",
+    "Български език и литература",
+    "Софтуерно инженерство",
+    "Руски език",
+    "Чужд език по професията",
+    "Гражданско образование",
+    "Физическо възпитание и спорт",
+    "Алгоритми и структури от данни",
+    "Интернет програмиране",
+    "Учебна практика - Софтуерно инженерство",
+    "Учебна практика - Интернет програмиране",
+    "Учебна практика - Алгоритми и структури от данни",
+    "Функционално програмиране",
+    "Учебна практика - Функционално програмиране",
+    "Бази данни"
+];
+ 
+subjects.forEach((name,i)=>{
+ document.write(`
+ <tr>
+   <td>${name}</td>
+   <td>-</td>
+   <td>-</td>
+   <td>-</td>
+   
+ </tr>
+ `);
+});
+</script>
+ 
+</table>
+</div> 
+
+
+</div>
+</div>
+</div>
+
+ 
