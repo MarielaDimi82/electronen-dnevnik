@@ -132,6 +132,26 @@ CREATE TABLE schedule (
     FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE,
     FOREIGN KEY (created_by_admin) REFERENCES admin(id) ON DELETE SET NULL
 );
+CREATE TABLE homework (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    class_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    teacher_id INT NOT NULL,
+    description TEXT NOT NULL,
+    due_date DATE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (class_id) REFERENCES classes(id),
+    FOREIGN KEY (subject_id) REFERENCES subjects(id),
+    FOREIGN KEY (teacher_id) REFERENCES teachers(id)
+);
+CREATE TABLE events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    event_date DATE NOT NULL,
+    created_by_admin INT NOT NULL,
+    FOREIGN KEY (created_by_admin) REFERENCES admin(id)
+);
 
 
 -
@@ -235,6 +255,14 @@ VALUES
 (2,9,9,'Monday','12:45','13:30',1),
 (2,8,8,'Monday','13:40','14:25',1);
 
+(2,9,9,'Tuesday','08:00','08:45',1),
+(2,9,9,'Tuesday','08:55','09:40',1),
+(2,10,10,'Tuesday','09:50','10:35',1),
+(2,3,3,'Tuesday','10:55','11:40',1),
+(2,5,5,'Tuesday','11:50','12:35',1),
+(2,5,5,'Tuesday','12:45','13:30',1),
+(2,4,4,'Tuesday','13:40','14:25',1);
+
 
 INSERT INTO grades (student_id,subject_id,teacher_id,grade,grade_date) VALUES
 (1,1,1,5,'2026-02-01'),
@@ -254,5 +282,6 @@ INSERT INTO note_templates (title, description) VALUES
 ('Липса на учебни материали', 'Ученикът е дошъл без учебник, тетрадка или други необходими материали.'),
 ('Използване на телефон', 'Ученикът използва мобилен телефон по време на час без разрешение.'),
 ('Без униформа','Ученикът е дошъл на училище без униформа.');
+
 
 
