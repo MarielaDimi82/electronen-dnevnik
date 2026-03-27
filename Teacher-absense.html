@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="bg">
 <head>
 <meta charset="UTF-8">
@@ -119,11 +119,6 @@ select,input{
   color:white;
   cursor:pointer;
 }
-
-h3 {
-    margin-top:0;
-    color:#1e88e5;
-}
 </style>
 </head>
  
@@ -134,8 +129,8 @@ h3 {
 
 <div class="top-menu">
   <button class="menu-btn" onclick="location.href='Teacher.html'">Оценки</button>
-  <div class="menu-btn" onclick="location.href='teacher-absense.html'">Отсъствия</div>
-  <div class="menu-btn active" >Забележки / Похвали</div>
+  <div class="menu-btn active">Отсъствия</div>
+  <div class="menu-btn" onclick="location.href='teacher zabelejki-pohvali.html'">Забележки / Похвали</div>
 </div>
  
 
@@ -144,8 +139,8 @@ h3 {
 <tr>
   <th>№</th>
   <th>Име, Презиме, Фамилия</th>
-  <th>Забележки</th>
-  <th>Похвали</th>
+  <th>Отсъсвия I срок</th>
+  <th>Отсъствия II срок</th>
   <th></th>
 </tr>
  
@@ -176,18 +171,21 @@ students.forEach((name,i)=>{
  
 
 <div class="modal" id="absenseModal">
-  <div class="modal-content" style="width:500px;">
-    <h3>Забележка / Похвала</h3>
-    <p id="studentName" style="font-weight:bold; font-size:16px;"></p>
+  <div class="modal-content">
+    <h3>Добавяне на отсъствие</h3>
+    <p id="studentName"></p>
     
-    <label style="display:block; text-align:left; margin-top:15px; font-weight:bold;">Тип:</label>
-    <select id="type">
-      <option>Забележка</option>
-      <option>Похвала</option>
-    </select>
+    <label>Тип отсъствие:</label>
+    <div style="margin-top:10px;">
+      
+      <button class="absence-btn" onclick="selectAbsence('Неизвинено')">Неизвинено</button>
+    </div>
 
-    <label style="display:block; text-align:left; margin-top:15px; font-weight:bold;">Съобщение:</label>
-    <textarea id="message" style="width:90%; height:120px; padding:8px; margin-top:10px; font-family:Arial; border:1px solid #ccc; border-radius:4px;"></textarea>
+    <label style="margin-top:15px; display:block;">Срок:</label>
+    <select id="term">
+      <option>I срок</option>
+      <option>II срок</option>
+    </select>
 
     <div style="margin-top:15px;">
       <button onclick="saveAbsence()" style="background:#4caf50;">Запиши</button>
@@ -199,36 +197,41 @@ students.forEach((name,i)=>{
  
 <script>
 let selectedStudent = "";
+let selectedAbsence = "";
  
 function openModal(name){
   selectedStudent = name;
+  selectedAbsence = "";
   document.getElementById("studentName").innerText = name;
-  document.getElementById("type").value = "Забележка";
-  document.getElementById("message").value = "";
+  document.getElementById("term").value = "I срок";
+  document.querySelectorAll(".absence-btn").forEach(b=>b.classList.remove("selected"));
   document.getElementById("absenseModal").style.display="flex";
 }
 
+function selectAbsence(type){
+  selectedAbsence = type;
+  document.querySelectorAll(".absence-btn").forEach(b=>b.classList.remove("selected"));
+  event.target.classList.add("selected");
+}
+ 
 function closeModal(){
   document.getElementById("absenseModal").style.display="none";
   clearSelection();
 }
 
 function clearSelection(){
-  selectedStudent = "";
-  document.getElementById("type").value = "Забележка";
-  document.getElementById("message").value = "";
+  selectedAbsence="";
+  document.getElementById("term").value="I срок";
+  document.querySelectorAll(".absence-btn").forEach(b=>b.classList.remove("selected"));
 }
 
 function saveAbsence(){
-  let type = document.getElementById("type").value;
-  let message = document.getElementById("message").value;
-  
-  if(!message.trim()){
-    alert("Моля, напишете съобщение");
+  if(!selectedAbsence){
+    alert("Моля, изберете тип отсъствие");
     return;
   }
-  
-  alert("Записано: " + type + "\n" + selectedStudent + "\n\n Съобщение: " + message);
+  let term = document.getElementById("term").value;
+  alert("Записано отсъствие: " + selectedAbsence + " " + term + " " + selectedStudent);
   closeModal();
 }
 </script>

@@ -1,0 +1,229 @@
+   <!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>Дневник - Софтуерно инженерство</title>
+ 
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6f9;
+}
+ 
+
+header{
+  background:#1e88e5;
+  color:white;
+  padding:15px 30px;
+  font-size:20px;
+}
+ 
+
+.sidebar{
+  position:fixed;
+  left:0; top:50px;
+  width:200px;
+  height:100%;
+  background:#5f5f5f;
+  padding-top:20px;
+}
+.sidebar a{
+  display:block;
+  color:white;
+  padding:12px;
+  text-decoration:none;
+  border-left:4px solid transparent;
+}
+.sidebar a:hover{background:#1e88e5;border-left-color:#ffeb3b;}
+
+
+.container{
+  width:90%;
+  padding:0;
+  margin: 0 auto;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+th,td{
+  padding:15px 12px;
+  text-align:center;
+  font-size:18px;
+  border:none;
+}
+th{
+    height: 60px;
+  background:#1e88e5;
+  color:white;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+td{
+  color:#333;
+}
+tr:nth-child(even){background:#f8f9fa;}
+tr:hover{background:#e3f2fd;}
+ 
+
+
+ .performance-section{
+  
+  background:transparent;
+  padding:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.performance-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.content{
+  margin-left:210px;
+  padding:20px;
+}
+
+select,input{
+  width:90%;
+  padding:8px;
+  margin-top:10px;
+}
+ 
+</style>
+</head>
+ 
+<body>
+ 
+<header> Иван Атанасов Петров</header>
+ 
+<div class="sidebar">
+  <a href="Student.html">Табло</a>
+  <a href="student-grades.html">Оценки</a>
+  <a href="student-absense.html">Отсъствия</a>
+  <a href="student-zabelejki-pohvali.html">Забележки / Похвали</a>
+  <a href="student-program.html">Седмична програма</a>
+</div>
+ 
+<div class="content">
+
+<div class="performance-section">
+    <div class="performance-row">
+
+<div class="container">
+<table>
+    <thead>
+<tr>
+  <th>Понеделник</th>
+  <th>Вторник</th>
+  <th>Сряда</th>
+  <th>Четвъртък</th>
+  <th>Петък</th>
+</tr>
+ </thead>
+ <tbody id="tableBody"></tbody>
+</table>
+<script>
+let subjects = [
+    "Математика",
+    "Български език и литература",
+    "Софтуерно инженерство",
+    "Руски език",
+    "Чужд език по професията",
+    "Гражданско образование",
+    "Физическо възпитание и спорт",
+    "Алгоритми и структури от данни",
+    "Интернет програмиране",
+    "Учебна практика - Интернет програмиране",
+    "Учебна практика - Софтуерно инженерство",
+
+    
+    "Учебна практика - Алгоритми и структури от данни",
+    "Функционално програмиране",
+    "Учебна практика - Функционално програмиране",
+    "Бази данни"
+];
+ let subjects1 = [
+     "Алгоритми и структури от данни",
+      "Алгоритми и структури от данни",
+       "Физическо възпитание и спорт",
+        "Физическо възпитание и спорт",
+         "Бази данни" ,
+          "Гражданско образование",
+            "Математика",
+    ]
+     let subjects2 = [
+         "Български език и литература",
+         "Български език и литература",
+        "Функционално програмиране",
+         "Учебна практика - Функционално програмиране",
+          "Учебна практика - Алгоритми и структури от данни",
+           "Учебна практика - Алгоритми и структури от данни",
+            "Руски език",
+    ]
+     let subjects3 = [
+     "Час на класа",
+     "Български език и литература",
+     "Български език и литература",
+     "Учебна практика - Интернет програмиране",
+     "Учебна практика - Интернет програмиране",
+     "Интернет програмиране",
+     "Интернет програмиране",
+    
+    ]
+     let subjects4 = [
+     "Учебна практика - Интернет програмиране",
+     "Учебна практика - Интернет програмиране",
+      "Учебна практика - Алгоритми и структури от данни",
+      "Физическо възпитание и спорт",
+      "Софтуерно инженерство",
+      "Софтуерно инженерство",
+      "Руски език",
+    ]
+     let subjects5 = [
+       "Математика",
+       "Учебна практика - Софтуерно инженерство",
+       "Учебна практика - Софтуерно инженерство",
+        "Учебна практика - Софтуерно инженерство",
+         "Чужд език по професията",
+       "Чужд език по професията",
+       "-",
+    ]
+
+ let tableBody = document.getElementById("tableBody");
+ for(let i=0;i < subjects1.length;i++){
+   tableBody.innerHTML += `
+    <tr>
+   <td>${subjects1[i]}</td>
+   
+   <td>${subjects2[i]}</td>
+   
+   <td>${subjects3[i]}</td>
+   <td>${subjects4[i]}</td>
+   <td>${subjects5[i]}</td>
+  </tr>
+   `;
+ }
+
+ 
+
+</script> 
+
+</div> 
+</div>
+</div>
+</div>
+
+ 
