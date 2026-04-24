@@ -1,0 +1,138 @@
+ <!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>Жалби - Ученически панел</title>
+<style>
+body{margin:0;font-family:Arial, sans-serif;background:#f4f6f9;}
+header{
+  background:#1e88e5;
+  color:white;
+  padding:15px;
+  font-size:20px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.sidebar{
+  position:fixed;
+  left:0; top:50px;
+  width:200px;
+  height:100%;
+  background:#5f5f5f;
+  padding-top:20px;
+}
+.sidebar a{
+  display:block;
+  color:white;
+  padding:12px;
+  text-decoration:none;
+  border-left:4px solid transparent;
+}
+.sidebar a:hover{background:#1e88e5;border-left-color:#ffeb3b;}
+.sidebar a.active{background:#1e88e5;border-left-color:#ffeb3b;}
+ 
+.content{
+  margin-left:210px;
+  padding:20px;
+}
+
+h2{color:#333;margin-bottom:20px;border-bottom:3px solid #1e88e5;padding-bottom:10px;}
+
+.complaint-form{
+  background:white;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  max-width:600px;
+  margin:0 auto;
+}
+.complaint-form label{
+  display:block;
+  margin-bottom:10px;
+  font-weight:bold;
+  color:#333;
+}
+.complaint-form select,
+.complaint-form textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  margin-bottom:20px;
+  box-sizing:border-box;
+}
+.complaint-form textarea{
+  height:200px;
+  resize:vertical;
+}
+.complaint-form button{
+  background:#1e88e5;
+  color:white;
+  border:none;
+  padding:12px 24px;
+  border-radius:5px;
+  font-size:16px;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+.complaint-form button:hover{
+  background:#1565c0;
+}
+
+@media(max-width:1200px){
+  .content{margin-left:0;padding:20px;}
+  .sidebar{position:static;width:100%;height:auto;}
+}
+</style>
+</head>
+<body>
+ 
+<header>Добре дошъл, Иван Атанасов Петров</header>
+ 
+<div class="sidebar">
+  <a href="Student.html">Табло</a>
+  <a href="student-grades.html">Оценки</a>
+  <a href="student-absense.html">Отсъствия</a>
+  <a href="student-zabelejki-pohvali.html">Забележки / Похвали</a>
+  <a href="student-program.html">Седмична програма</a>
+  <a href="student-calendar.html">Събития</a>
+  <a href="student-complaint.html" >Оплаквания</a>
+</div>
+ 
+<div class="content">
+ 
+<section id="complaint">
+  <h2>Подаване на оплакване</h2>
+  
+  <form class="complaint-form">
+    <label for="complaint-type">Тип на оплакването:</label>
+    <select id="complaint-type">
+      <option value="grade">Оспорване на оценка</option>
+      <option value="absence">Оспорване на отсъствие</option>
+      <option value="note">Оплакване за забележка</option>
+      <option value="behavior">Оплакване за поведение</option>
+      <option value="other">Друго оплакване</option>
+    </select>
+    
+    <label for="complaint-text">оплаквания:</label>
+    <textarea id="complaint-text" placeholder="Опишете вашето оплакване тук..."></textarea>
+    
+    <button type="button" onclick="saveComplaint()">Запази</button>
+  </form>
+</section>
+
+<script>
+function saveComplaint() {
+  const type = document.getElementById('complaint-type').value;
+  const text = document.getElementById('complaint-text').value;
+  if (text.trim() === '') {
+    alert('Моля, въведете описание на оплакването.');
+    return;
+  }
+  alert('Оплакването е запазено успешно! Ще бъде разгледано от учителя.');
+
+}
+</script>
+</body> 
+</div>
